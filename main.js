@@ -1,5 +1,6 @@
 // OpenWeather API key
 const WEATHERKEY = '96bf8bc622edecbf9db6e995d585591d';
+const GIPHYKEY = 'Tr3b0kFP73aJgMw5Jkxp45TO0JhVdJyN';
 
 const units = 'imperial';
 
@@ -16,7 +17,16 @@ function getWeather(city, units) {
     { mode: 'cors' }
   )
     .then((response) => response.json())
-    .then((data) => console.log(data))
+    .then((data) => {
+      const temp = document.createElement('p');
+      temp.id = 'temp';
+      temp.innerText = 'Temperature: ' + data.main.temp;
+      const description = document.createElement('p');
+      description.id = 'description';
+      description.innerText = 'Weather: ' + data.weather[0].description;
+      document.querySelector('#root').prepend(temp, description);
+      return data.main.temp;
+    })
     .catch((error) => console.log(error));
 }
 
