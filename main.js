@@ -20,7 +20,8 @@ function getWeather(city, units) {
     .catch((error) => console.log(error));
 }
 
-document.querySelector('form').addEventListener('submit', function() {
+document.querySelector('form').addEventListener('submit', function(event) {
+  event.preventDefault();
   const city = getCity();
   getWeather(city, units);
 })
