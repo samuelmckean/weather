@@ -42,20 +42,15 @@ function updateDOM(data) {
   getGif(data.weather)
     .then((url) => {
       // create img element for gif of weather
-      const img = document.createElement('img');
-      img.id = 'gif';
+      const img = document.querySelector('#gif');
       img.src = url;
-      document.querySelector('#root').prepend(img);
     })
     .catch((error) => console.log(error));
   // create paragraph elements to display weather data
-  const temp = document.createElement('p');
-  temp.id = 'temp';
+  const temp = document.querySelector('#temp');
   temp.innerText = 'Temperature: ' + data.temp;
-  const description = document.createElement('p');
-  description.id = 'description';
+  const description = document.querySelector('#weather');
   description.innerText = 'Weather: ' + data.weather;
-  document.querySelector('#root').prepend(temp, description);
 }
 
 document.querySelector('form').addEventListener('submit', function(event) {
