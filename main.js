@@ -64,4 +64,4 @@ document.querySelector('form').addEventListener('submit', function(event) {
   getWeather(city, units)
     .then((weatherData) => updateDOM(weatherData))
     .catch((error) => console.log(error));    
-})
+});
