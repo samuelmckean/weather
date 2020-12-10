@@ -25,6 +25,10 @@ form {
   align-items: center;
 }
 
+#temp {
+  min-width: 150px;
+}
+
 #units {
   display: flex;
   flex-direction: row;
