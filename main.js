@@ -17,6 +17,12 @@ function getWeather(city, units) {
     { mode: 'cors' }
   )
     .then((response) => response.json())
+    .then((data) => {
+      return {
+        temp: data.main.temp,
+        weather: data.weather[0].description,
+      }
+    })
     .catch((error) => console.log(error));
 }
 
@@ -33,7 +39,7 @@ function getGif(searchTerm) {
 
 function updateDOM(data) {
   // start async process of getting gif
-  const gifUrl = getGif(data.weather[0].description)
+  const gifUrl = getGif(data.weather)
     .then((url) => {
       // create img element for gif of weather
       const img = document.createElement('img');
@@ -45,10 +51,10 @@ function updateDOM(data) {
   // create paragraph elements to display weather data
   const temp = document.createElement('p');
   temp.id = 'temp';
-  temp.innerText = 'Temperature: ' + data.main.temp;
+  temp.innerText = 'Temperature: ' + data.temp;
   const description = document.createElement('p');
   description.id = 'description';
-  description.innerText = 'Weather: ' + data.weather[0].description;
+  description.innerText = 'Weather: ' + data.weather;
   document.querySelector('#root').prepend(temp, description);
 }
 
