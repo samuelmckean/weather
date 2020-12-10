@@ -33,11 +33,14 @@ form {
 }
 
 #units div {
-  background-color: purple;
-  opacity: 0;
-  transition: opacity 500ms ease-in-out;
+  background-color: white;
+  color: black;
+  transition: "background-color" 500ms ease-in-out;
+  transition: color 500ms ease-in-out;
+  padding: 2px;
 }
 
 #units div.selected {
-  opacity: 1;
+  background-color: purple;
+  color: white;
 }
