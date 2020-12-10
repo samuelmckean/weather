@@ -1,7 +1,7 @@
 #root {
   display: grid;
   grid-template-rows: repeat(4, 1fr);
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(2, 1fr);
 }
 
 #gif {
@@ -17,4 +17,27 @@
 form {
   grid-row: 4 / 5;
   grid-column: 1 / 2;
+}
+
+#temp-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+#units {
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  border-style: solid;
+}
+
+#units div {
+  background-color: purple;
+  opacity: 0;
+  transition: opacity 500ms ease-in-out;
+}
+
+#units div.selected {
+  opacity: 1;
 }
