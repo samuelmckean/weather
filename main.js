@@ -2,7 +2,7 @@
 const WEATHERKEY = '96bf8bc622edecbf9db6e995d585591d';
 const GIPHYKEY = 'Tr3b0kFP73aJgMw5Jkxp45TO0JhVdJyN';
 
-const units = 'imperial';
+let units = 'imperial';
 
 // gets the user input for the city to search
 function getCity() {
@@ -52,6 +52,22 @@ function updateDOM(data) {
   const description = document.querySelector('#weather');
   description.innerText = 'Weather: ' + data.weather;
 }
+
+// updates the value of units when the user clicks on the temp units
+function selectUnits(event) {
+  if (event.target.id === 'fahrenheit') {
+    units = 'imperial';
+    document.querySelector('#fahrenheit').classList.add('selected');
+    document.querySelector('#celsius').classList.remove('selected');
+  } else {
+    units = 'metric';
+    document.querySelector('#fahrenheit').classList.remove('selected');
+    document.querySelector('#celsius').classList.add('selected');
+  }
+  // TODO: make call to weather API again
+}
+
+document.querySelector('#units').addEventListener('click', selectUnits);
 
 document.querySelector('form').addEventListener('submit', function(event) {
   event.preventDefault();
