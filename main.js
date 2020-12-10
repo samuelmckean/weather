@@ -39,7 +39,7 @@ function getGif(searchTerm) {
 
 function updateDOM(data) {
   // start async process of getting gif
-  const gifUrl = getGif(data.weather)
+  getGif(data.weather)
     .then((url) => {
       // create img element for gif of weather
       const img = document.createElement('img');
