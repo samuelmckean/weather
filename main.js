@@ -48,12 +48,7 @@ function updateDOM(data) {
     .catch((error) => console.log(error));
   // create paragraph elements to display weather data
   const temp = document.querySelector('#temp');
-  temp.innerText = 'Temperature: ' + data.temp 
-  if (units === 'imperial') {
-    temp.innerText += ' °F';
-  } else {
-    temp.innerText += ' °C';
-  }
+  temp.innerText = 'Temperature: ' + data.temp;
   const description = document.querySelector('#weather');
   description.innerText = 'Weather: ' + data.weather;
 }
