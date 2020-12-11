@@ -54,14 +54,24 @@
     description.innerText = 'Weather: ' + data.weather;
   }
 
+  // renders an element to notify the user that the app is loading during API request
   function renderLoading() {
     // check if already a loading element
-    const loading = document.querySelector('#loading');
+    const loading = document.getElementById('loading');
     if (!loading) {
       const element = document.createElement('p');
       element.id = 'loading';
       element.innerText = 'Loading...';
       document.querySelector('#root').append(element);
+    }
+  }
+
+  // removes the element notifying the user that data is loading
+  function doneLoading() {
+    // check if there is a loading element
+    const loading = document.getElementById('loading');
+    if (loading) {
+      loading.remove();
     }
   }
 
@@ -79,7 +89,11 @@
     // get city and make a call to weather API again
     const city = getCity();
     getWeather(city, units)
-      .then((data) => renderData(data))
+      .then((data) => {
+        renderData(data)
+        // when data rendered remove loading element
+        doneLoading()
+      })
       .catch((error) => console.log(error));
   }
 
@@ -90,11 +104,16 @@
     const city = getCity();
     const weatherData = getWeather(city, units);
     // get and render gif asynchronously
-    weatherData.then((data) => getGif(data.weather))
-      .then((url) => renderGif(url))
+    Promise.all([
+      weatherData.then((data) => getGif(data.weather))
+        .then((url) => renderGif(url))
+        .catch((error) => console.log(error)),
+      // render weather data in the DOM
+      weatherData.then((data) => renderData(data))
+        .catch((error) => console.log(error)),   
+    ])
+      // when both have successfully loaded and render then remove loading element
+      .then(() => doneLoading())
       .catch((error) => console.log(error));
-    // render weather data in the DOM
-    weatherData.then((data) => renderData(data))
-      .catch((error) => console.log(error));    
   });
 }());
