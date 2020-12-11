@@ -37,15 +37,13 @@ function getGif(searchTerm) {
   .catch((error) => console.log(error));
 }
 
-function updateDOM(data) {
-  // start async process of getting gif
-  getGif(data.weather)
-    .then((url) => {
-      // create img element for gif of weather
-      const img = document.querySelector('#gif');
-      img.src = url;
-    })
-    .catch((error) => console.log(error));
+function renderGif(url) {
+    // create img element for gif of weather
+    const img = document.querySelector('#gif');
+    img.src = url;
+}
+
+function renderData(data) {
   // create paragraph elements to display weather data
   const temp = document.querySelector('#temp');
   temp.innerText = 'Temperature: ' + data.temp;
@@ -72,7 +70,12 @@ document.querySelector('#units').addEventListener('click', selectUnits);
 document.querySelector('form').addEventListener('submit', function(event) {
   event.preventDefault();
   const city = getCity();
-  getWeather(city, units)
-    .then((weatherData) => updateDOM(weatherData))
+  const weatherData = getWeather(city, units);
+  // get and render gif asynchronously
+  weatherData.then((data) => getGif(data.weather))
+    .then((url) => renderGif(url))
+    .catch((error) => console.log(error));
+  // render weather data in the DOM
+  weatherData.then((data) => renderData(data))
     .catch((error) => console.log(error));    
 });
