@@ -12,6 +12,7 @@
 
   // makes the API request to get the weather data
   function getWeather(city, units) {
+    renderLoading();
     return fetch
     (
       `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${WEATHERKEY}&units=${units}`, 
@@ -28,6 +29,7 @@
   }
 
   function getGif(searchTerm) {
+    renderLoading();
     return fetch
     (
       `https://api.giphy.com/v1/gifs/translate?api_key=${GIPHYKEY}&s=${searchTerm}`,
@@ -50,6 +52,17 @@
     temp.innerText = 'Temperature: ' + data.temp;
     const description = document.querySelector('#weather');
     description.innerText = 'Weather: ' + data.weather;
+  }
+
+  function renderLoading() {
+    // check if already a loading element
+    const loading = document.querySelector('#loading');
+    if (!loading) {
+      const element = document.createElement('p');
+      element.id = 'loading';
+      element.innerText = 'Loading...';
+      document.querySelector('#root').append(element);
+    }
   }
 
   // updates the value of units when the user clicks on the temp units
