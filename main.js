@@ -62,7 +62,11 @@ function selectUnits(event) {
     document.querySelector('#fahrenheit').classList.remove('selected');
     document.querySelector('#celsius').classList.add('selected');
   }
-  // TODO: make call to weather API again
+  // get city and make a call to weather API again
+  const city = getCity();
+  getWeather(city, units)
+    .then((data) => renderData(data))
+    .catch((error) => console.log(error));
 }
 
 document.querySelector('#units').addEventListener('click', selectUnits);
